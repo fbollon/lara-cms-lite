@@ -6,4 +6,5 @@
 return [
     'layout' => 'layouts.default',
     'table' => 'contents',
+    'role' => 'redactor', //false if no restriction access
 ];

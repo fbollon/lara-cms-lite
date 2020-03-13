@@ -6,7 +6,8 @@
 
 <div class="mb-3">
     <div class="float-right">
-        {{-- @can('create', new App\Content) --}}
+        {{-- @can('create', new Fbollon\LaraCmsLite\Models\Content) --}}
+        {{-- @can('hasRole', 'administrator') --}}
             <a href="{{ route('contents.create') }}" class="btn btn-success">{{ __('lara-cms-lite::content.create') }}</a>
         {{-- @endcan --}}
     </div>

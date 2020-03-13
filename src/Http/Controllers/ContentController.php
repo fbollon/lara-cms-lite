@@ -31,10 +31,10 @@ class ContentController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', new Content);
+        // $this->authorize('create', new Content);
         $routes = \Route::getRoutes()->getRoutesByMethod()['GET'];
         ksort($routes);
-        return view('contents.create', compact('routes'));
+        return view('lara-cms-lite::contents.create', compact('routes'));
     }
 
     /**
@@ -45,7 +45,7 @@ class ContentController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', new Content);
+        // $this->authorize('create', new Content);
         $newContent = $request->validate([
             'name'        => 'required|max:100',
             'description' => 'required',
@@ -53,7 +53,7 @@ class ContentController extends Controller
             'displayed'         => 'required|boolean',
         ]);
 
-        $newContent['user_id'] = auth()->id();
+        $newContent['creator_id'] = auth()->id();
         $content = Content::create($newContent);
 
         return redirect()->route('contents.show', $content);
@@ -69,7 +69,7 @@ class ContentController extends Controller
     {
         // $mediaItems = $content->getMedia('images');
         $mediaItems = null;
-        return view('contents.show', compact('content', 'mediaItems'));
+        return view('lara-cms-lite::contents.show', compact('content', 'mediaItems'));
     }
 
     /**
@@ -83,7 +83,7 @@ class ContentController extends Controller
         $this->authorize('update', $content);
         $routes = \Route::getRoutes()->getRoutesByMethod()['GET'];
         ksort($routes);
-        return view('contents.edit', compact('content', 'routes'));
+        return view('lara-cms-lite::contents.edit', compact('content', 'routes'));
     }
 
     /**
@@ -95,7 +95,7 @@ class ContentController extends Controller
      */
     public function update(Request $request, Content $content)
     {
-        $this->authorize('update', $content);
+        // $this->authorize('update', $content);
 
         $contentData = $request->validate([
             'name'        => 'required|max:100',
@@ -103,7 +103,7 @@ class ContentController extends Controller
             'route' => 'required',
             'displayed'         => 'required|boolean',
         ]);
-        $contentData['user_id'] = auth()->id();
+        $contentData['creator_id'] = auth()->id();
         $contentData['displayed'] = $request->displayed;
         $content->update($contentData);
 

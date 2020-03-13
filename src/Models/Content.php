@@ -13,7 +13,7 @@ class Content extends Model // implements HasMedia
 {
     // use HasMediaTrait;
     
-    protected $fillable = ['name', 'description', 'route', 'user_id', 'displayed'];
+    protected $fillable = ['name', 'description', 'route', 'creator_id', 'displayed'];
 
     public function registerMediaConversions(Media $media = null)
     {
@@ -59,7 +59,7 @@ class Content extends Model // implements HasMedia
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'creator_id', 'id');
     }
 
     public function files()

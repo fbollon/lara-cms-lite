@@ -15,7 +15,7 @@ return [
     'back_to_index'  => 'Back to Content List',
 
     // Actions
-    'create'         => 'Créer un nouveau contenyu',
+    'create'         => 'Créer un nouveau contenu',
     'created'        => 'A new Content has been created.',
     'show'           => 'View Content Detail',
     'edit'           => 'Edit Content',
@@ -31,5 +31,5 @@ return [
     'name'           => 'Content Name',
     'description'    => 'Content Description',
     'route' => 'Route',
-    
+
 ];
