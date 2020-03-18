@@ -113,7 +113,7 @@
     Replace '0' with corresponding slide number.
 -->
 
-            <div class="row" id="gallery" data-toggle="modal" data-target="#exampleModal">
+            {{-- <div class="row" id="gallery" data-toggle="modal" data-target="#exampleModal">
 
                 @foreach ($mediaItems as $item)
                 <div class="col-6 col-md-4 col-lg-3">
@@ -121,13 +121,13 @@
                         data-target=”#carouselExample” data-slide-to="{{$loop->iteration}}">
                 </div>
                 @endforeach
-            </div>
+            </div> --}}
 
             <!-- Modal -->
             <!-- 
     This part is straight out of Bootstrap docs. Just a carousel inside a modal.
 -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
+            {{-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-xl" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -170,11 +170,11 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             {{-- https://medium.com/@diegovogel/create-a-lightbox-gallery-with-standard-bootstrap-components-b9de322ddb9e --}}
 
             <!-- Modal removeFiles -->
-            <div class="modal fade" id="removeFiles" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            {{-- <div class="modal fade" id="removeFiles" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -207,7 +207,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
             <div class="card-footer">
                 @can('update', $content)
