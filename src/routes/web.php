@@ -1,22 +1,24 @@
 <?php
 
 // Route::get('contents', function(){
-    //     return view('lara-cms-lite::index');
-    // });
-    
-
-    // use Illuminate\Support\Facades\Route;
-    // use Fbollon\LaraCmsLite\Http\Controllers\ContentController;
+//     return view('lara-cms-lite::index');
+// });
 
 
-    if (config('lara-cms-lite.role')) {
-        Route::group(['middleware' => ['web', 'role:'.config('lara-cms-lite.role').'']], function () {
+// use Illuminate\Support\Facades\Route;
+// use Fbollon\LaraCmsLite\Http\Controllers\ContentController;
+
+Route::group(['middleware' => ['web']], function () {
+
+
+    if (config('lara-cms-lite.roles')) {
+        Route::group(['middleware' => ['web', 'role:'.implode(config('lara-cms-lite.roles'), ',').'']], function () {
             Route::resource('contents', 'Fbollon\LaraCmsLite\Http\Controllers\ContentController');
           });
     } else {
         Route::resource('contents', 'Fbollon\LaraCmsLite\Http\Controllers\ContentController');
     }
-    
+});
 
 
 

@@ -18,7 +18,8 @@
     "minimum-stability": "dev",
     "require": {
         "php": "^7.1",
-        "illuminate/support": "^6.0"
+        "illuminate/support": "^6.0",
+        "tinymce/tinymce": ">= 5"
     },
     "require-dev": {
         "orchestra/testbench": "^4.0",

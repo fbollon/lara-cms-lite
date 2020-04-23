@@ -4,8 +4,6 @@
 
 @section('content')
 
-<script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
-
 <div class="row justify-content-center">
     <div class="col-md-10">
         @if (request('action') == 'delete' && $content)
@@ -152,6 +150,8 @@
         </div>
     </div>
 </div>
+
+<script src="{{ asset('vendor/tinymce/tinymce/tinymce.min.js') }}"></script>
 
 <script>
     tinymce.init({

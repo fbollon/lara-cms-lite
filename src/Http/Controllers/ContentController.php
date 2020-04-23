@@ -4,9 +4,8 @@ namespace Fbollon\LaraCmsLite\Http\Controllers;
 
 use Fbollon\LaraCmsLite\Models\Content;
 use App\Http\Controllers\Controller;
-// use App\Content_type;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
-// use Spatie\MediaLibrary\Models\Media;
 
 class ContentController extends Controller
 {
@@ -19,6 +18,7 @@ class ContentController extends Controller
     {
         $contentQuery = Content::query();
         $contentQuery->where('name', 'like', '%'.request('q').'%');
+        $contentQuery->with('User');
         $contentsList = $contentQuery->paginate(25);
 
         return view('lara-cms-lite::contents.index', compact('contentsList'));
@@ -31,10 +31,30 @@ class ContentController extends Controller
      */
     public function create()
     {
-        // $this->authorize('create', new Content);
-        $routes = \Route::getRoutes()->getRoutesByMethod()['GET'];
-        ksort($routes);
+        $routes = $this->getRoutes();
         return view('lara-cms-lite::contents.create', compact('routes'));
+    }
+    
+    /**
+     * Get routes to populate select menu 
+     *
+     * in create or edit form 
+     *
+     **/
+    private function getRoutes()
+    {
+        $routes = Route::getRoutes()->getRoutesByMethod()['GET'];
+
+        if (config('lara-cms-lite.filter_routes')) {
+            $allowed_routes = config('lara-cms-lite.allowed_routes');
+            $filterArray = array_filter($routes, function ($route) use ($allowed_routes) {
+                return (in_array($route->uri, $allowed_routes) === true);
+            });
+            $routes = $filterArray;
+        }
+
+        ksort($routes);
+        return $routes;
     }
 
     /**
@@ -65,9 +85,9 @@ class ContentController extends Controller
      * @param  \App\Content  $content
      * @return \Illuminate\View\View
      */
-    public function show(Content $content)
+    public function show($id)
     {
-        // $mediaItems = $content->getMedia('images');
+        $content = Content::with(config('lara-cms-lite.user.className'))->find($id);
         $mediaItems = null;
         return view('lara-cms-lite::contents.show', compact('content', 'mediaItems'));
     }
@@ -80,9 +100,7 @@ class ContentController extends Controller
      */
     public function edit(Content $content)
     {
-        $this->authorize('update', $content);
-        $routes = \Route::getRoutes()->getRoutesByMethod()['GET'];
-        ksort($routes);
+        $routes = $this->getRoutes();
         return view('lara-cms-lite::contents.edit', compact('content', 'routes'));
     }
 

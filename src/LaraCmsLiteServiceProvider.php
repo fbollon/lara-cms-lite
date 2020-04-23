@@ -3,6 +3,7 @@
 namespace Fbollon\LaraCmsLite;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Blade;
 
 class LaraCmsLiteServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,10 @@ class LaraCmsLiteServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__.'/../config/config.php' => config_path('lara-cms-lite.php'),
             ], 'config');
+
+            // $this->publishes([
+            //     __DIR__ . '/../vendor/tinymce' => public_path('vendor/tinymce'),
+            // ], 'public');
 
             // Publishing the views.
             /*$this->publishes([
