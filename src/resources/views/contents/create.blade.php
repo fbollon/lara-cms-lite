@@ -7,18 +7,18 @@
 <div class="row justify-content-center">
     <div class="col-md-11">
         <div class="card">
-            <div class="card-header"><b>{{ __('content.create') }}</b></div>
+            <div class="card-header"><b>{{ __('lara-cms-lite::content.create') }}</b></div>
             <form method="POST" action="{{ route('contents.store') }}" accept-charset="UTF-8"
             enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="card-body">
                 <div class="form-group">
-                    <label for="displayed" class="form-label">{{ __('content.displayed') }} <span
+                    <label for="displayed" class="form-label">{{ __('lara-cms-lite::content.displayed') }} <span
                         class="form-required">*</span></label>
                         <select id="displayed" class="form-control{{ $errors->has('displayed') ? ' is-invalid' : '' }}"
                             name="displayed" value="{{ old('displayed') }}" required>
-                            <option selected value="1">{{ __('app.yes') }}</option>
-                            <option value="0">{{ __('app.no') }}</option>
+                            <option selected value="1">{{ __('lara-cms-lite::content.yes') }}</option>
+                            <option value="0">{{ __('lara-cms-lite::content.no') }}</option>
                         </select>
                         {!! $errors->first('displayed', '<span class="invalid-feedback" role="alert">:message</span>')
                         !!}
@@ -26,10 +26,10 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <label class="input-group-text"
-                            for="route">{{ __('content.content_type') }}</label>
+                            for="route">{{ __('lara-cms-lite::content.route') }}</label>
                         </div>
                         <select class="custom-select" id="route" name="route">
-                            <option selected>{{__('app.choose')}}</option>
+                            <option selected>{{__('lara-cms-lite::content.select')}}</option>
                             @foreach ($routes as $route)
                             @if ($route->getname())
                             <option value="{{ $route->getname() }}">
@@ -41,7 +41,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="name" class="form-label">{{ __('content.name') }} <span
+                        <label for="name" class="form-label">{{ __('lara-cms-lite::content.name') }} <span
                             class="form-required">*</span></label>
                             <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
                             name="name" value="{{ old('name') }}" required>
@@ -93,8 +93,8 @@
                         </script>
                     </div>
                     <div class="card-footer">
-                        <input type="submit" value="{{ __('content.create') }}" class="btn btn-success">
-                        <a href="{{ route('contents.index') }}" class="btn btn-link">{{ __('app.cancel') }}</a>
+                        <input type="submit" value="{{ __('lara-cms-lite::content.create') }}" class="btn btn-success">
+                        <a href="{{ route('contents.index') }}" class="btn btn-link">{{ __('lara-cms-lite::content.cancel') }}</a>
                     </div>
                 </form>
             </div>

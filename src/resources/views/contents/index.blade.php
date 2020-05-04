@@ -1,15 +1,10 @@
 @extends(config('lara-cms-lite.layout'))
 
-{{-- @section('title', __('lara-cms-lite::content.list')) --}}
-
 @section('content')
 
 <div class="mb-3">
     <div class="float-right">
-        {{-- @can('create', new Fbollon\LaraCmsLite\Models\Content) --}}
-        {{-- @can('hasRole', 'administrator') --}}
-            <a href="{{ route('contents.create') }}" class="btn btn-success">{{ __('lara-cms-lite::content.create') }}</a>
-        {{-- @endcan --}}
+        <a href="{{ route('contents.create') }}" class="btn btn-success">{{ __('lara-cms-lite::content.create') }}</a>
     </div>
     <h1 class="page-title">{{ __('lara-cms-lite::content.list') }} <small>{{ __('app.total') }} : {{ $contentsList->total() }} {{ __('lara-cms-lite::content.content') }}</small></h1>
 </div>
@@ -33,6 +28,7 @@
                         <th>{{ __('lara-cms-lite::content.name') }}</th>
                         <th>{{ __('lara-cms-lite::content.route') }}</th>
                         <th>{{ __('lara-cms-lite::content.description') }}</th>
+                        <th>{{ __('lara-cms-lite::content.displayed') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,7 +36,8 @@
                     <tr class='table-row' data-href="{{ route('contents.show', $content) }}">    
                         <td>{!! $content->name_link !!}</td>
                         <td>{{ $content->route }}</td>
-                        <td>{{ strip_tags(\Illuminate\Support\Str::limit($content->description, 60, $end='...')) }}</td>
+                        <td>{{ html_entity_decode(strip_tags(\Illuminate\Support\Str::limit($content->description, 60, $end='...'))) }}</td>
+                        <td>{{ $content->displayed ? __('lara-cms-lite::content.yes') : __('lara-cms-lite::content.no') }}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -52,10 +49,10 @@
 
 <script>
     $(document).ready(function($) {
-$(".table-row").click(function() {
-window.location = $(this).data("href");
-});
-});
+        $(".table-row").click(function() {
+            window.location = $(this).data("href");
+        });
+    });
 </script>
 
 @endsection

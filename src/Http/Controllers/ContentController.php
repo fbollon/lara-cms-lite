@@ -65,7 +65,6 @@ class ContentController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->authorize('create', new Content);
         $newContent = $request->validate([
             'name'        => 'required|max:100',
             'description' => 'required',
@@ -113,8 +112,6 @@ class ContentController extends Controller
      */
     public function update(Request $request, Content $content)
     {
-        // $this->authorize('update', $content);
-
         $contentData = $request->validate([
             'name'        => 'required|max:100',
             'description' => 'required',
@@ -137,9 +134,6 @@ class ContentController extends Controller
      */
     public function destroy(Request $request, Content $content)
     {
-        $this->authorize('delete', $content);
-        $request->validate(['content_id' => 'required']);
-
         if ($request->get('content_id') == $content->id && $content->delete()) {
             return redirect()->route('contents.index');
         }
@@ -147,43 +141,6 @@ class ContentController extends Controller
         return back();
     }
 
-    /**
-     * remove uploaded file
-     *
-     * remove file and thumb
-     *
-     **/
-    public function removeFile(Request $request)
-    {
-        // foreach ($request['medias'] as $media) {
-        //     $mediaTodelete = Media::find($media)->delete();
-        // }
-
-        return redirect("/contents/{$request['content_id']}")->with('success', 'File deleted !');
-    }
-
-
-    public function upload(Request $request, Content $content)
-    {
-        // $this->validate($request, [
-        //     'newFile' => 'image|max:10000|required',
-        //     'fileDescription' => 'nullable|max:1000',
-        //     'fileTitle' => 'nullable|max:100',
-        // ]);
-
-        // //Store Image
-        // if ($request->hasFile('newFile') && $request->file('newFile')->isValid()) {
-        //     $media = $content->addMediaFromRequest('newFile')
-        //         ->withCustomProperties(
-        //             [
-        //                 'description' => $request->fileDescription,
-        //                 'title' => $request->fileTitle
-        //             ]
-        //         )->toMediaCollection('images');
-        // }
-
-        return redirect("/contents/{$content->id}")->with('success', 'New file added !');
-    }
 
 }
 
