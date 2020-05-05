@@ -16,8 +16,11 @@ You can install the package via composer:
 composer require fbollon/lara-cms-lite
 ```
 
-Publish config file and adjust values if needed in config/lara-cms-lite.php based on comments
-Publish tinymce to public/vendor/tinymce
+Publish assets
+* tinymce to public/vendor/tinymce 
+* lara-cms-lite config file and adjust values if needed in config/lara-cms-lite.php based on comments
+
+
 ```bash
 php artisan vendor:publish --provider="Fbollon\LaraCmsLite\LaraCmsLiteServiceProvider"
 ```

@@ -27,7 +27,7 @@ class LaraCmsLiteServiceProvider extends ServiceProvider
             ], 'config');
 
             $this->publishes([
-                __DIR__ . '/../vendor/tinymce' => public_path('vendor/tinymce'),
+                __DIR__ . '/../../../../vendor/tinymce' => public_path('vendor/tinymce'),
             ], 'public');
 
             // Publishing the views.
