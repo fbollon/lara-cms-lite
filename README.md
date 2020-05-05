@@ -17,7 +17,7 @@ composer require fbollon/lara-cms-lite
 ```
 
 Publish config file and adjust values if needed in config/lara-cms-lite.php based on comments
-
+Publish tinymce to public/vendor/tinymce
 ```bash
 php artisan vendor:publish --provider="Fbollon\LaraCmsLite\LaraCmsLiteServiceProvider"
 ```
