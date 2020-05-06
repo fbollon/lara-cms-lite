@@ -12,16 +12,43 @@
             enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="card-body">
-                <div class="form-group">
-                    <label for="displayed" class="form-label">{{ __('lara-cms-lite::content.displayed') }} <span
-                        class="form-required">*</span></label>
-                        <select id="displayed" class="form-control{{ $errors->has('displayed') ? ' is-invalid' : '' }}"
-                            name="displayed" value="{{ old('displayed') }}" required>
+                <div class="form-group row">
+                    <label for="display_title" class="col-sm-4 col-form-label">{{ __('lara-cms-lite::content.displayed') }} </label>
+                        <div class="col-sm-8">
+                        {{-- <select id="displayed" class="form-control{{ $errors->has('displayed') ? ' is-invalid' : '' }}"
+                            name="displayed" value="{{ old('displayed') }}" required> --}}
+                        <select id="displayed" name="displayed" class="custom-select" required>
                             <option selected value="1">{{ __('lara-cms-lite::content.yes') }}</option>
                             <option value="0">{{ __('lara-cms-lite::content.no') }}</option>
                         </select>
-                        {!! $errors->first('displayed', '<span class="invalid-feedback" role="alert">:message</span>')
-                        !!}
+                        {!! $errors->first('displayed', '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="display_title" class="col-sm-4 col-form-label">{{ __('lara-cms-lite::content.display_title') }}</label>
+                        <div class="col-sm-8">
+                            <select id="display_title" name="display_title" class="custom-select" required>
+                                <option selected value="1">{{ __('lara-cms-lite::content.yes') }}
+                                </option>
+                                <option value="0">{{ __('lara-cms-lite::content.no') }}
+                                </option>
+                            </select>
+                            {!! $errors->first('display_title', '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="display_footer"
+                        class="col-sm-4 col-form-label">{{ __('lara-cms-lite::content.display_footer') }}</label>
+                        <div class="col-sm-8">
+                            <select id="display_footer" name="display_footer" class="custom-select" required>
+                                <option selected value="1">{{ __('lara-cms-lite::content.yes') }}
+                                </option>
+                                <option value="0">
+                                    {{ __('lara-cms-lite::content.no') }}
+                                </option>
+                            </select>
+                            {!! $errors->first('display_footer', '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                        </div>
                     </div>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">

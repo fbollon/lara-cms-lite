@@ -13,18 +13,26 @@
                     <tbody>
                         <tr>
                             <td style="width: 25%">{{ __('lara-cms-lite::content.creator') }}</td>
-                            <td>{{ $content->user->{config('lara-cms-lite::content.user.displayFieldName')} }}</td>
+                            <td>{{$content->getUserDisplayName()}}</td>
                         </tr>
                         <tr>
                             <td style="width: 25%">{{ __('lara-cms-lite::content.displayed') }}</td>
                             <td>{{ $content->displayed ? __('lara-cms-lite::content.yes') : __('lara-cms-lite::content.no') }}</td>
                         </tr>
                         <tr>
-                            <td style="width: 25%">{{ __('lara-cms-lite::content.created') }}</td>
+                            <td>{{ __('lara-cms-lite::content.display_title') }}</td>
+                            <td>{{ $content->display_title ? __('lara-cms-lite::content.yes') : __('lara-cms-lite::content.no') }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ __('lara-cms-lite::content.display_footer') }}</td>
+                            <td>{{ $content->display_footer ? __('lara-cms-lite::content.yes') : __('lara-cms-lite::content.no') }}</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%">{{ __('lara-cms-lite::content.created_at') }}</td>
                             <td>{{ $content->created_at }}</td>
                         </tr>
                         <tr>
-                            <td style="width: 25%">{{ __('lara-cms-lite::content.updated') }}</td>
+                            <td style="width: 25%">{{ __('lara-cms-lite::content.updated_at') }}</td>
                             <td>{{ $content->updated_at }}</td>
                         </tr>
                         <tr>

@@ -3,17 +3,21 @@
 namespace Fbollon\LaraCmsLite\Models;
 
 use App\User;
-// use App\Content_type;
 use Illuminate\Database\Eloquent\Model;
-// use Spatie\MediaLibrary\Models\Media;
-// use Spatie\MediaLibrary\HasMedia\HasMedia;
-// use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
 class Content extends Model // implements HasMedia
 {
     // use HasMediaTrait;
     
-    protected $fillable = ['name', 'description', 'route', 'creator_id', 'displayed'];
+    protected $fillable = [
+        'name', 
+        'description', 
+        'route', 
+        'creator_id', 
+        'displayed',
+        'display_title',
+        'display_footer',
+    ];
 
     public function registerMediaConversions(Media $media = null)
     {
@@ -62,9 +66,10 @@ class Content extends Model // implements HasMedia
         return $this->belongsTo(User::class, 'creator_id', 'id');
     }
 
-    public function files()
+    public function  getUserDisplayName()
     {
-        return $this->hasMany(Attachedfile::class);
+        return $this->user->{config('lara-cms-lite.user.displayFieldName')};
     }
+
 }
 

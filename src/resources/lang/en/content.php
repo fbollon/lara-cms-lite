@@ -36,9 +36,12 @@ return [
     'cancel'            => 'Cancel',
     'created_at'        => 'Created at',
     'updated_at'        => 'Updated at',
+    'display_title' => 'Display title',
+    'display_footer' => 'Display footer',
 
     // Others
     'yes'               => 'Yes',
     'no'                => 'No',
+    'choose'        => 'Choose...',
 
 ];

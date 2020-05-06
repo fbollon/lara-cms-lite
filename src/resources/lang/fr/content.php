@@ -36,10 +36,14 @@ return [
     'cancel'            => 'Annuler',
     'created_at'        => 'Créé le',
     'updated_at'        => 'Modifié le',
+    'display_title' => 'Afficher le titre',
+    'display_footer' => 'Afficher le pied de page',
+
     
     // Others
     'yes'               => 'Oui',
     'no'                => 'Non',
-    
+    'choose'        => 'Choisir...',
+
     
 ];

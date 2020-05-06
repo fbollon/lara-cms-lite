@@ -70,6 +70,8 @@ class ContentController extends Controller
             'description' => 'required',
             'route' => 'required',
             'displayed'         => 'required|boolean',
+            'display_title' => 'boolean',
+            'display_footer' => 'boolean',
         ]);
 
         $newContent['creator_id'] = auth()->id();
@@ -117,6 +119,8 @@ class ContentController extends Controller
             'description' => 'required',
             'route' => 'required',
             'displayed'         => 'required|boolean',
+            'display_title' => 'boolean',
+            'display_footer' => 'boolean',
         ]);
         $contentData['creator_id'] = auth()->id();
         $contentData['displayed'] = $request->displayed;
