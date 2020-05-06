@@ -5,8 +5,7 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/fbollon/lara-cms-lite.svg?style=flat-square)](https://scrutinizer-ci.com/g/fbollon/lara-cms-lite)
 [![Total Downloads](https://img.shields.io/packagist/dt/fbollon/lara-cms-lite.svg?style=flat-square)](https://packagist.org/packages/fbollon/lara-cms-lite)
 
-
-Lara-cms-lite allows you to give users the possibility to add content to some predefined pages in your Laravel applications.
+Lara-cms-lite was created to allow some users to add and manage content on predefined business application pages in intranet, this avoids having to modify the application source code to change a text on a home page or other. We could also use this package to add a news-style page or blog to existing application.
 
 ## Installation
 
