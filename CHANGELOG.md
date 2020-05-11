@@ -7,3 +7,8 @@ All notable changes to `lara-cms-lite` will be documented in this file
 - initial release with very few features to test package deployment with packagist
   - basic content management (CRUD)
   - displaying created content on existing pages
+
+## 0.2.0 - 2020-05-11
+
+- simple authorization checking with Gates
+- update Readme

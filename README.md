@@ -31,7 +31,28 @@ php artisan migrate
 ```
 A table named 'contents' will be created, if a table with the same name already exists in your app change value of 'table' in config/lara-cms-lite.php
 
+## Authorization
 
+Add 1 method canManageLaraCmsLiteContent() to your \App\User file with your own logic 
+
+Define a gate in your App\Providers\AuthServiceProvider
+```php
+    /**
+     * Register any authentication / authorization services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->registerPolicies();
+
+        Gate::define('lara-cms-lite-manage', function ($user) {
+            return $user->canManageLaraCmsLiteContent();
+        });
+
+    }
+
+```
 
 ## Usage
 
