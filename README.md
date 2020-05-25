@@ -15,14 +15,28 @@ You can install the package via composer:
 composer require fbollon/lara-cms-lite
 ```
 
-Publish assets
+Publish assets, config and views
 * tinymce to public/vendor/tinymce 
 * lara-cms-lite config file and adjust values if needed in config/lara-cms-lite.php based on comments
-
+* lara-cms-lite views to views/vendor/lara-cms-lite
 
 ```bash
 php artisan vendor:publish --provider="Fbollon\LaraCmsLite\LaraCmsLiteServiceProvider"
 ```
+
+Or publish by tags
+
+```bash
+php artisan vendor:publish --provider="Fbollon\LaraCmsLite\LaraCmsLiteServiceProvider" --tag=public
+
+php artisan vendor:publish --provider="Fbollon\LaraCmsLite\LaraCmsLiteServiceProvider" --tag=config
+
+php artisan vendor:publish --provider="Fbollon\LaraCmsLite\LaraCmsLiteServiceProvider" --tag=views
+```
+
+> To force publishing add `--force` flag.
+
+
 
 Create required tables
 

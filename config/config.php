@@ -27,4 +27,7 @@ return [
         '/', 
         'about',
     ],
+
+    // to change tinymce url in views create and edit
+    'tinymce_url' =>  env('LARA_CMS_LITE_TINYMCE_URL', '/vendor/tinymce/tinymce/tinymce.min.js'),
 ];

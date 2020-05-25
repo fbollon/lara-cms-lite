@@ -183,7 +183,7 @@
         </div>
     </div>
     
-    <script src="{{ asset('/vendor/tinymce/tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ asset(config('lara-cms-lite.tinymce_url')) }}"></script>
     
     <script>
         tinymce.init({
