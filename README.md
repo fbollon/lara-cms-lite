@@ -64,7 +64,7 @@ In you default layout add this where you want to display content in your layout
 
 ``` php
 @if (!empty($contents) && count($contents))
-@include('lara-cms-lite::partials.contents')
+@include('lara-cms-lite::layouts.partials.contents')
 @endif
 
 ```
