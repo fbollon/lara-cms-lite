@@ -7,7 +7,7 @@
 <div class="row justify-content-center">
     <div class="col-md-10">
         @if (request('action') == 'delete' && $content)
-        
+
         <div class="card">
             <h5 class="card-header">{{ __('lara-cms-lite::content.delete') }}</h5>
             <div class="card-body">
@@ -48,7 +48,7 @@
                         </tr>
                     </tbody>
                 </table>
-                
+
                 {!! $errors->first('content_id', '<span class="invalid-feedback" role="alert">:message</span>') !!}
             </div>
             <hr style="margin:0">
@@ -64,7 +64,7 @@
             <a href="{{ route('contents.edit', $content) }}" class="btn btn-link">{{ __('lara-cms-lite::content.cancel') }}</a>
         </div>
     </div>
-    
+
     @else
     <div class="card">
         <div class="card-header">{{ __('lara-cms-lite::content.edit') }}</div>
@@ -145,7 +145,7 @@
                     value="{{ old('name', $content->name) }}" required>
                     {!! $errors->first('name', '<span class="invalid-feedback" role="alert">:message</span>') !!}
                 </div>
-                
+
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="route">{{ __('lara-cms-lite::content.route') }}</label>
@@ -158,11 +158,11 @@
                             {{ $route->uri() }}
                         </option>
                         @endif
-                        
+
                         @endforeach
                     </select>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="description" class="form-label"><b>{{ __('lara-cms-lite::content.description') }}</b></label>
                     <textarea id="editor" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}"
@@ -174,7 +174,7 @@
                 <div class="card-footer">
                     <input type="submit" value="{{ __('lara-cms-lite::content.update') }}" class="btn btn-success">
                     <a href="{{ route('contents.show', $content) }}" class="btn btn-link">{{ __('lara-cms-lite::content.cancel') }}</a>
-                    
+
                     <a href="{{ route('contents.edit', [$content, 'action' => 'delete']) }}" id="del-content-{{ $content->id }}"
                         class="btn btn-danger float-right">{{ __('lara-cms-lite::content.delete') }}</a>
                     </div>
@@ -182,9 +182,14 @@
             </div>
         </div>
     </div>
-    
+
+    @endif
+
+    @endsection
+
+    @section('scripts')
     <script src="{{ asset(config('lara-cms-lite.tinymce_url')) }}"></script>
-    
+
     <script>
         tinymce.init({
             selector: 'textarea',
@@ -201,7 +206,7 @@
             {title: 'Responsive', value: 'img-responsive'},
             {title: 'Fluid', value: 'img-fluid'},
             ],
-            image_caption: false,                
+            image_caption: false,
             images_upload_handler: function (blobInfo, success, failure) {
                 let data = new FormData();
                 data.append('file', blobInfo.blob(), blobInfo.filename());
@@ -213,11 +218,9 @@
                     failure('HTTP Error: ' + err.message);
                 });
             }
-            
+
         });
-        
+
     </script>
-    @endif
-    
+
     @endsection
-    

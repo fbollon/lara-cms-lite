@@ -63,7 +63,7 @@
                                 {{ $route->uri() }}
                             </option>
                             @endif
-                            
+
                             @endforeach
                         </select>
                     </div>
@@ -74,50 +74,9 @@
                             name="name" value="{{ old('name') }}" required>
                             {!! $errors->first('name', '<span class="invalid-feedback" role="alert">:message</span>') !!}
                         </div>
-                        
+
                         <textarea class="description" name="description"></textarea>
-                        
-                        <script src="{{ asset(config('lara-cms-lite.tinymce_url')) }}"></script>
-                        
-                        <script>
-                            tinymce.init({
-                                selector: 'textarea',
-                                plugins: [
-                                "advlist autolink lists link image charmap print preview anchor",
-                                "searchreplace visualblocks code fullscreen",
-                                "insertdatetime media table contextmenu paste imagetools"
-                                ],
-                                toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-                                file_picker_types: 'image',
-                                relative_urls: false,
-                                image_class_list: [{
-                                    title: 'None',
-                                    value: ''
-                                },
-                                
-                                {
-                                    title: 'Responsive',
-                                    value: 'img-responsive'
-                                },
-                                {
-                                    title: 'Fluid',
-                                    value: 'img-fluid'
-                                },
-                                ],
-                                images_upload_handler: function (blobInfo, success, failure) {
-                                    let data = new FormData();
-                                    data.append('file', blobInfo.blob(), blobInfo.filename());
-                                    axios.post('{{url("/file-upload")}}', data)
-                                    .then(function (res) {
-                                        success(res.data.location);
-                                    })
-                                    .catch(function (err) {
-                                        failure('HTTP Error: ' + err.message);
-                                    });
-                                }
-                                
-                            });
-                        </script>
+
                     </div>
                     <div class="card-footer">
                         <input type="submit" value="{{ __('lara-cms-lite::content.create') }}" class="btn btn-success">
@@ -127,6 +86,50 @@
             </div>
         </div>
     </div>
-    
+
     @endsection
-    
+
+    @section('scripts')
+    <script src="{{ asset(config('lara-cms-lite.tinymce_url')) }}"></script>
+
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: [
+            "advlist autolink lists link image charmap print preview anchor",
+            "searchreplace visualblocks code fullscreen",
+            "insertdatetime media table contextmenu paste imagetools"
+            ],
+            toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+            file_picker_types: 'image',
+            relative_urls: false,
+            image_class_list: [{
+                title: 'None',
+                value: ''
+            },
+
+            {
+                title: 'Responsive',
+                value: 'img-responsive'
+            },
+            {
+                title: 'Fluid',
+                value: 'img-fluid'
+            },
+            ],
+            images_upload_handler: function (blobInfo, success, failure) {
+                let data = new FormData();
+                data.append('file', blobInfo.blob(), blobInfo.filename());
+                axios.post('{{url("/file-upload")}}', data)
+                .then(function (res) {
+                    success(res.data.location);
+                })
+                .catch(function (err) {
+                    failure('HTTP Error: ' + err.message);
+                });
+            }
+
+        });
+    </script>
+
+    @endsection

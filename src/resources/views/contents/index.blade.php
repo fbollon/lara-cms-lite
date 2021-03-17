@@ -33,7 +33,7 @@
                 </thead>
                 <tbody>
                     @foreach($contentsList as $key => $content)
-                    <tr class='table-row' data-href="{{ route('contents.show', $content) }}">    
+                    <tr class='table-row' data-href="{{ route('contents.show', $content) }}">
                         <td>{!! $content->name_link !!}</td>
                         <td>{{ $content->route }}</td>
                         <td>{{ html_entity_decode(strip_tags(\Illuminate\Support\Str::limit($content->description, 60, $end='...'))) }}</td>
@@ -46,13 +46,21 @@
         </div>
     </div>
 </div>
+@endsection
 
-<script>
-    $(document).ready(function($) {
-        $(".table-row").click(function() {
-            window.location = $(this).data("href");
+@section('scripts')
+    <script>
+        var ready = (callback) => {
+            if (document.readyState != "loading") callback();
+            else document.addEventListener("DOMContentLoaded", callback);
+        }
+
+        ready(() => {
+        document.querySelector(".table-row").addEventListener("click", (e) => {
+            let link = document.querySelector(".table-row").getAttribute('data-href');
+            console.log(link);
+            window.location = link;
+            });
         });
-    });
-</script>
-
+    </script>
 @endsection
