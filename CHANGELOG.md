@@ -12,3 +12,7 @@ All notable changes to `lara-cms-lite` will be documented in this file
 
 - simple authorization checking with Gates
 - update Readme
+
+## 0.2.7 - 2020-04-18
+
+- adding Laravel 7.x support.
