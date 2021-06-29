@@ -8,15 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Content extends Model // implements HasMedia
 {
     // use HasMediaTrait;
-    
+
     protected $fillable = [
-        'name', 
-        'description', 
-        'route', 
-        'creator_id', 
+        'name',
+        'description',
+        'route',
+        'creator_id',
         'displayed',
         'display_title',
         'display_footer',
+        'weight',
     ];
 
     public function registerMediaConversions(Media $media = null)
@@ -27,7 +28,7 @@ class Content extends Model // implements HasMedia
             ->sharpen(10)
             ->performOnCollections('images');
     }
-    
+
     public function getNameLinkAttribute()
     {
         $title = __('app.show_detail_title', [
@@ -55,6 +56,7 @@ class Content extends Model // implements HasMedia
     {
         $contents = Content::where('displayed', '=', 1)
             ->where('route', '=', \Route::currentRouteName())
+            ->orderBy('weight', 'desc')
             ->orderBy('created_at', 'desc')
             ->paginate($nb);
 

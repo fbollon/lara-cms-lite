@@ -38,6 +38,7 @@ return [
     'updated_at'        => 'Updated at',
     'display_title' => 'Display title',
     'display_footer' => 'Display footer',
+    'weight' => 'Weight',
 
     // Others
     'yes'               => 'Yes',

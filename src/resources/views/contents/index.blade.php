@@ -29,6 +29,7 @@
                         <th>{{ __('lara-cms-lite::content.route') }}</th>
                         <th>{{ __('lara-cms-lite::content.description') }}</th>
                         <th>{{ __('lara-cms-lite::content.displayed') }}</th>
+                        <th>{{ __('lara-cms-lite::content.weight') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,6 +39,7 @@
                         <td>{{ $content->route }}</td>
                         <td>{{ html_entity_decode(strip_tags(\Illuminate\Support\Str::limit($content->description, 60, $end='...'))) }}</td>
                         <td>{{ $content->displayed ? __('lara-cms-lite::content.yes') : __('lara-cms-lite::content.no') }}</td>
+                        <td>{{ $content->weight }}</td>
                     </tr>
                     @endforeach
                 </tbody>

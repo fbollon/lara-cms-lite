@@ -13,7 +13,7 @@ return [
     'empty'             => 'Le contenu est vide.',
     'back_to_show'      => 'Retour au détail',
     'back_to_index'     => 'Retour à la liste des contenus',
-    
+
     // Actions
     'create'            => 'Créer un nouveau contenu',
     'created'           => 'Un nouveau contenu a été créé.',
@@ -26,24 +26,25 @@ return [
     'deleted'           => 'Le contenu a été supprimé.',
     'undeleted'         => 'Le contenu n\'a pas été supprimé.',
     'undeleteable'      => 'Le contenu ne peut pas être supprimé.',
-    
+
     // Attributes
     'name'              => 'Titre',
     'description'       => 'Description',
     'route'             => 'Route',
     'displayed'         => 'Affichage',
-    'creator'           => 'Rédacteur',   
+    'creator'           => 'Rédacteur',
     'cancel'            => 'Annuler',
     'created_at'        => 'Créé le',
     'updated_at'        => 'Modifié le',
     'display_title' => 'Afficher le titre',
     'display_footer' => 'Afficher le pied de page',
+    'weight' => 'Poids',
 
-    
+
     // Others
     'yes'               => 'Oui',
     'no'                => 'Non',
     'choose'        => 'Choisir...',
 
-    
+
 ];

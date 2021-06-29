@@ -18,7 +18,7 @@ class ContentController extends Controller
     public function index()
     {
         Gate::authorize('lara-cms-lite-manage');
-        
+
         $contentQuery = Content::query();
         $contentQuery->where('name', 'like', '%'.request('q').'%');
         $contentQuery->with('User');
@@ -35,15 +35,15 @@ class ContentController extends Controller
     public function create()
     {
         Gate::authorize('lara-cms-lite-manage');
-        
+
         $routes = $this->getRoutes();
         return view('lara-cms-lite::contents.create', compact('routes'));
     }
-    
+
     /**
-     * Get routes to populate select menu 
+     * Get routes to populate select menu
      *
-     * in create or edit form 
+     * in create or edit form
      *
      **/
     private function getRoutes()
@@ -71,7 +71,7 @@ class ContentController extends Controller
     public function store(Request $request)
     {
         Gate::authorize('lara-cms-lite-manage');
-        
+
         $newContent = $request->validate([
             'name'        => 'required|max:100',
             'description' => 'required',
@@ -79,6 +79,7 @@ class ContentController extends Controller
             'displayed'         => 'required|boolean',
             'display_title' => 'boolean',
             'display_footer' => 'boolean',
+            'weight' => 'integer|max:65535',
         ]);
 
         $newContent['creator_id'] = auth()->id();
@@ -96,7 +97,7 @@ class ContentController extends Controller
     public function show($id)
     {
         Gate::authorize('lara-cms-lite-manage');
-        
+
         $content = Content::with(config('lara-cms-lite.user.className'))->find($id);
         $mediaItems = null;
         return view('lara-cms-lite::contents.show', compact('content', 'mediaItems'));
@@ -111,7 +112,7 @@ class ContentController extends Controller
     public function edit(Content $content)
     {
         Gate::authorize('lara-cms-lite-manage');
-        
+
         $routes = $this->getRoutes();
         return view('lara-cms-lite::contents.edit', compact('content', 'routes'));
     }
@@ -126,7 +127,7 @@ class ContentController extends Controller
     public function update(Request $request, Content $content)
     {
         Gate::authorize('lara-cms-lite-manage');
-        
+
         $contentData = $request->validate([
             'name'        => 'required|max:100',
             'description' => 'required',
@@ -134,6 +135,7 @@ class ContentController extends Controller
             'displayed'         => 'required|boolean',
             'display_title' => 'boolean',
             'display_footer' => 'boolean',
+            'weight' => 'integer|max:65535',
         ]);
         $contentData['creator_id'] = auth()->id();
         $contentData['displayed'] = $request->displayed;
@@ -152,7 +154,7 @@ class ContentController extends Controller
     public function destroy(Request $request, Content $content)
     {
         Gate::authorize('lara-cms-lite-manage');
-        
+
         if ($request->get('content_id') == $content->id && $content->delete()) {
             return redirect()->route('contents.index');
         }

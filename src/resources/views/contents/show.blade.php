@@ -36,19 +36,23 @@
                             <td>{{ $content->updated_at }}</td>
                         </tr>
                         <tr>
+                            <td style="width: 25%">{{ __('lara-cms-lite::content.weight') }}</td>
+                            <td>{{ $content->weight }}</td>
+                        </tr>
+                        <tr>
                             <td style="width: 25%">{{ __('lara-cms-lite::content.name') }}</td>
                             <td>{{ $content->name }}</td>
                         </tr>
                     </tbody>
                 </table>
-                
+
                 <div>
                     {!! $content->description !!}
                 </div>
             </div>
-            
+
             <div class="card-footer">
-                
+
                 <a href="{{ route('contents.edit', $content) }}" id="content-help-{{ $content->id }}"
                     class="btn btn-primary">{{ __('lara-cms-lite::content.edit') }}</a>
                     <a href="{{ route('contents.index') }}" class="btn btn-link">{{ __('lara-cms-lite::content.back_to_index') }}</a>
@@ -56,6 +60,5 @@
             </div>
         </div>
     </div>
-    
+
     @endsection
-    

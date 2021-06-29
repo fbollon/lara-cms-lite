@@ -67,6 +67,16 @@
                             @endforeach
                         </select>
                     </div>
+                    <div class="form-group row">
+                        <label for="weight" class="col-sm-4 col-form-label">{{ __('lara-cms-lite::content.weight') }} </label>
+                        <div class="col-sm-8">
+                            <input id="weight" type="integer"
+                                class="form-control{{ $errors->has('weight') ? ' is-invalid' : '' }}" name="weight"
+                                value="{{ old('weight', 0) }}">
+                            {!! $errors->first('weight', '<span class="invalid-feedback" role="alert">:message</span>')
+                            !!}
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="name" class="form-label">{{ __('lara-cms-lite::content.name') }} <span
                             class="form-required">*</span></label>
