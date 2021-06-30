@@ -2,7 +2,7 @@
 @if(!empty($contents))
 <div class="card-body">{{ $contents->appends(Request::except('page'))->render() }}</div>
 @foreach ($contents as $content)
-<div class="card">
+<div class="card mb-4">
     @if ($content->display_title)
     <div class="card-header">
         {!! $content->name !!}

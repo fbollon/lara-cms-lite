@@ -30,6 +30,7 @@
                         <th>{{ __('lara-cms-lite::content.description') }}</th>
                         <th>{{ __('lara-cms-lite::content.displayed') }}</th>
                         <th>{{ __('lara-cms-lite::content.weight') }}</th>
+                        <th>{{ __('lara-cms-lite::content.created_at') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,6 +41,7 @@
                         <td>{{ html_entity_decode(strip_tags(\Illuminate\Support\Str::limit($content->description, 60, $end='...'))) }}</td>
                         <td>{{ $content->displayed ? __('lara-cms-lite::content.yes') : __('lara-cms-lite::content.no') }}</td>
                         <td>{{ $content->weight }}</td>
+                        <td>{{ $content->created_at }}</td>
                     </tr>
                     @endforeach
                 </tbody>
