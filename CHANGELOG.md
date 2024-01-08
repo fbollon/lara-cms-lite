@@ -24,3 +24,11 @@ All notable changes to `lara-cms-lite` will be documented in this file
 ## 0.3.1 - 2021-12-23
 
 - adding Laravel 8.x support.
+
+## 0.3.2 - 2022-04-13
+
+- add php8 and Laravel 9.x support in composer.json 
+
+## 0.3.3 - 2024-01-08
+
+- add Laravel 10.x support.
