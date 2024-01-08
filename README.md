@@ -9,7 +9,7 @@ Lara-cms-lite was created to allow some users to add and manage content on prede
 
 ## Installation
 
-Laravel from `6.x` to `8.x` are supported.
+Laravel from `6.x` to `10.x` are supported.
 
 You can install the package via composer:
 
