@@ -2,6 +2,10 @@
 
 All notable changes to `lara-cms-lite` will be documented in this file.
 
+## [0.3.5] - 2025-11-12
+
+- Adding Laravel 12.x support.
+
 ## [0.3.4] - 2024-11-07
 
 - Adding Laravel 11.x support.
