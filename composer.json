@@ -17,13 +17,12 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": "^7.1|^8.0|^8.1|^8.2",
-        "illuminate/support": "^6.0|^7.0|^8.0|^9.0|^10.0|^11.0|^12.0",
-        "tinymce/tinymce": ">= 5"
+        "php": "^8.2",
+        "illuminate/support": "^11.0|^12.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^4.0",
-        "phpunit/phpunit": "^8.0"
+        "orchestra/testbench": "^9.0",
+        "phpunit/phpunit": "^11.5"
     },
     "autoload": {
         "psr-4": {
@@ -38,7 +37,6 @@
     "scripts": {
         "test": "vendor/bin/phpunit",
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
-
     },
     "config": {
         "sort-packages": true

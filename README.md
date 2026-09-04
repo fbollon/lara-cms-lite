@@ -1,128 +1,174 @@
-# Lightweight content manager package for Laravel applications
+# Lara CMS Lite
+
+A lightweight content management package for Laravel applications.
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/fbollon/lara-cms-lite.svg?style=flat-square)](https://packagist.org/packages/fbollon/lara-cms-lite)
-[![Build Status](https://img.shields.io/travis/fbollon/lara-cms-lite/master.svg?style=flat-square)](https://travis-ci.org/fbollon/lara-cms-lite)
-[![Quality Score](https://img.shields.io/scrutinizer/g/fbollon/lara-cms-lite.svg?style=flat-square)](https://scrutinizer-ci.com/g/fbollon/lara-cms-lite)
 [![Total Downloads](https://img.shields.io/packagist/dt/fbollon/lara-cms-lite.svg?style=flat-square)](https://packagist.org/packages/fbollon/lara-cms-lite)
+[![License](https://img.shields.io/packagist/l/fbollon/lara-cms-lite.svg?style=flat-square)](LICENSE.md)
 
-Lara-cms-lite was created to allow some users to add and manage content on predefined business application pages in intranet, this avoids having to modify the application source code to change a text on a home page or other. We could also use this package to add a news-style page or blog to existing application.
+Lara CMS Lite allows authorized users to add and manage content on predefined pages of a Laravel application. It is especially useful for intranet and business applications where selected text must be updated without modifying the application's source code.
+
+The package can also be used to add simple news or blog-style content to an existing application.
+
+## Requirements
+
+- PHP 8.2 or later
+- Laravel 11 or 12
 
 ## Installation
 
-Laravel from `6.x` to `12.x` are supported.
-
-You can install the package via composer:
+Install the package with Composer:
 
 ```bash
 composer require fbollon/lara-cms-lite
 ```
 
-Publish assets, config and views
-* tinymce to public/vendor/tinymce 
-* lara-cms-lite config file and adjust values if needed in config/lara-cms-lite.php based on comments
-* lara-cms-lite views to views/vendor/lara-cms-lite
+Publish the package configuration and views:
 
 ```bash
 php artisan vendor:publish --provider="Fbollon\LaraCmsLite\LaraCmsLiteServiceProvider"
 ```
 
-Or publish by tags
+You can also publish resources individually by tag:
 
 ```bash
-php artisan vendor:publish --provider="Fbollon\LaraCmsLite\LaraCmsLiteServiceProvider" --tag=public
-
 php artisan vendor:publish --provider="Fbollon\LaraCmsLite\LaraCmsLiteServiceProvider" --tag=config
-
 php artisan vendor:publish --provider="Fbollon\LaraCmsLite\LaraCmsLiteServiceProvider" --tag=views
 ```
 
-> To force publishing add `--force` flag.
+To overwrite previously published files, add the `--force` option:
 
+```bash
+php artisan vendor:publish --provider="Fbollon\LaraCmsLite\LaraCmsLiteServiceProvider" --tag=config --force
+php artisan vendor:publish --provider="Fbollon\LaraCmsLite\LaraCmsLiteServiceProvider" --tag=views --force
+```
 
-
-Create required tables
+Run the migrations:
 
 ```bash
 php artisan migrate
 ```
-A table named 'contents' will be created, if a table with the same name already exists in your app change value of 'table' in config/lara-cms-lite.php
+
+A `contents` table will be created. If your application already contains a table with this name, change the `table` value in:
+
+```text
+config/lara-cms-lite.php
+```
+
+## TinyMCE
+
+TinyMCE is loaded from the jsDelivr CDN by default. It is no longer installed or published through Composer.
+
+Default URL:
+
+```text
+https://cdn.jsdelivr.net/npm/tinymce@8.9.0/tinymce.min.js
+```
+
+You can override this URL in the application's `.env` file, for example to use another CDN or a locally hosted copy:
+
+```env
+LARA_CMS_LITE_TINYMCE_URL=https://example.com/tinymce/tinymce.min.js
+```
+
+After changing the URL, clear Laravel's configuration cache:
+
+```bash
+php artisan config:clear
+```
+
+If the package configuration was previously published, make sure `config/lara-cms-lite.php` contains the current `tinymce_url` setting.
 
 ## Authorization
 
-Add 1 method canManageLaraCmsLiteContent() to your \App\User file with your own logic 
+Add a `canManageLaraCmsLiteContent()` method to your application's user model and implement the authorization logic required by your application:
 
-Define a gate in your App\Providers\AuthServiceProvider
 ```php
-    /**
-     * Register any authentication / authorization services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        $this->registerPolicies();
-
-        Gate::define('lara-cms-lite-manage', function ($user) {
-            return $user->canManageLaraCmsLiteContent();
-        });
-
-    }
-
+public function canManageLaraCmsLiteContent(): bool
+{
+    return true;
+}
 ```
+
+Define the `lara-cms-lite-manage` gate in your application's authorization configuration:
+
+```php
+use Illuminate\Support\Facades\Gate;
+
+Gate::define('lara-cms-lite-manage', function ($user) {
+    return $user->canManageLaraCmsLiteContent();
+});
+```
+
+Replace the sample logic with the appropriate roles or permissions for your application.
 
 ## Usage
 
-Visit your application url : http://yourApplication/contents to start creating and managing content .
+Visit the following URL to create and manage content:
 
-To display content in existing views of your application 
+```text
+https://your-application.test/contents
+```
 
-In you default layout add this where you want to display content in your layout
+### Display content in an existing view
 
-``` php
+Add the following code where the contextual content should be displayed:
+
+```blade
 @if (!empty($contents) && count($contents))
-@include('lara-cms-lite::layouts.partials.contents')
+    @include('lara-cms-lite::layouts.partials.contents')
 @endif
-
 ```
-Depending where you allow users to add content in yours methods controller add 
 
-``` php
-// import model 
+In each controller method that displays managed content, import the `Content` model, retrieve the contextual content, and pass it to the view:
+
+```php
 use Fbollon\LaraCmsLite\Models\Content;
-```
 
-``` php
-// for each method you allow to display content
-public function xxx()
+public function index()
 {
-    // get content 
     $contents = Content::getContextualContent();
 
-    // and send content to the view
-    return view('xxx.xxx', compact('contents'));
+    return view('your.view', compact('contents'));
 }
-```        
+```
 
-### Changelog
+## Updating
 
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+Update the package and any related dependencies with:
+
+```bash
+composer update fbollon/lara-cms-lite -W
+```
+
+Then clear the application caches and run pending migrations:
+
+```bash
+php artisan optimize:clear
+php artisan migrate
+```
+
+## Changelog
+
+Please see [CHANGELOG.md](CHANGELOG.md) for information about recent changes.
 
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
-### Security
+## Security
 
+If you discover a security vulnerability, please report it privately to the package maintainer instead of opening a public issue.
 
 ## Credits
 
-- [Frédéric Bollon](https://github.com/fbollon)
+- [Frederic Bollon](https://github.com/fbollon)
 - [All Contributors](../../contributors)
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+The MIT License. Please see [LICENSE.md](LICENSE.md) for more information.
 
 ## Laravel Package Boilerplate
 
-This package was generated using the [Laravel Package Boilerplate](https://laravelpackageboilerplate.com).
+This package was generated using [Laravel Package Boilerplate](https://laravelpackageboilerplate.com).

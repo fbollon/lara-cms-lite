@@ -11,7 +11,7 @@ return [
     'table' => 'contents',
 
     // 'roles' => ['redactor', 'toto'], //to be implemented
-    
+
     // User specifications in your app
     'user' => [
         'className' => 'User',
@@ -24,10 +24,17 @@ return [
     // example to limit select menu value filter_routes needs to be true
     'allowed_routes' => [
         'help',
-        '/', 
+        '/',
         'about',
     ],
 
-    // to change tinymce url in views create and edit
-    'tinymce_url' =>  env('LARA_CMS_LITE_TINYMCE_URL', '/vendor/tinymce/tinymce/tinymce.min.js'),
+
+    // TinyMCE CDN URL used in the create and edit views
+    'tinymce_url' => env(
+        'LARA_CMS_LITE_TINYMCE_URL',
+        'https://cdn.jsdelivr.net/npm/tinymce@8.9.0/tinymce.min.js'
+    ),
+
+
+
 ];
