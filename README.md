@@ -14,6 +14,11 @@ The package can also be used to add simple news or blog-style content to an exis
 
 - PHP 8.2 or later
 - Laravel 11 or 12
+- Bootstrap 4 or Bootstrap 5 when using the package views without customization
+
+The package provides ready-to-use views for Bootstrap 4 and Bootstrap 5.
+
+Bootstrap is only required when using these views without customization. Applications that do not use Bootstrap can publish the package views and adapt their markup and styles to their own front-end framework.
 
 ## Installation
 
@@ -23,39 +28,80 @@ Install the package with Composer:
 composer require fbollon/lara-cms-lite
 ```
 
-Publish the package configuration and views:
-
-```bash
-php artisan vendor:publish --provider="Fbollon\LaraCmsLite\LaraCmsLiteServiceProvider"
-```
-
-You can also publish resources individually by tag:
-
-```bash
-php artisan vendor:publish --provider="Fbollon\LaraCmsLite\LaraCmsLiteServiceProvider" --tag=config
-php artisan vendor:publish --provider="Fbollon\LaraCmsLite\LaraCmsLiteServiceProvider" --tag=views
-```
-
-To overwrite previously published files, add the `--force` option:
-
-```bash
-php artisan vendor:publish --provider="Fbollon\LaraCmsLite\LaraCmsLiteServiceProvider" --tag=config --force
-php artisan vendor:publish --provider="Fbollon\LaraCmsLite\LaraCmsLiteServiceProvider" --tag=views --force
-```
-
 Run the migrations:
 
 ```bash
 php artisan migrate
 ```
 
-A `contents` table will be created. If your application already contains a table with this name, change the `table` value in:
+A `contents` table will be created. If your application already contains a table with this name, publish the package configuration and change the `table` value in `config/lara-cms-lite.php`.
+
+## Configuration
+
+Publish the package configuration:
+
+```bash
+php artisan vendor:publish --provider="Fbollon\LaraCmsLite\LaraCmsLiteServiceProvider" --tag=config
+```
+
+The configuration file will be published to:
 
 ```text
 config/lara-cms-lite.php
 ```
 
-## TinyMCE
+Review the available options and adjust them to match your application.
+
+## Bootstrap version
+
+The package provides ready-to-use views for Bootstrap 4 and Bootstrap 5.
+
+Bootstrap is only required when using the provided views without customization. Applications that do not use Bootstrap can publish the package views and adapt their markup and styles to their own front-end framework.
+
+Set the Bootstrap version used by the package in your application's `.env` file:
+
+```env
+LARA_CMS_LITE_BOOTSTRAP_VERSION=5
+```
+
+Supported values are:
+
+- `4` for Bootstrap 4 views
+- `5` for Bootstrap 5 views
+
+After changing the Bootstrap version, clear Laravel's configuration cache:
+
+```bash
+php artisan config:clear
+```
+
+To publish the package views:
+
+```bash
+php artisan vendor:publish --provider="Fbollon\LaraCmsLite\LaraCmsLiteServiceProvider" --tag=views
+```
+
+The published views can then be customized from:
+
+```text
+resources/views/vendor/lara-cms-lite
+```
+
+To overwrite previously published views, use the `--force` option:
+
+```bash
+php artisan vendor:publish --provider="Fbollon\LaraCmsLite\LaraCmsLiteServiceProvider" --tag=views --force
+```
+
+> **Warning:** The `--force` option overwrites existing published views. Back up or compare your customized views before running this command.
+
+### Bootstrap dependency
+
+Lara CMS Lite does not install or load Bootstrap. The host application must already include the Bootstrap CSS and JavaScript corresponding to the version selected in the package configuration.
+
+If the host application does not use Bootstrap, publish the package views and adapt their markup and CSS classes to the front-end framework or custom styles used by the application.
+
+### TinyMCE
 
 TinyMCE is loaded from the jsDelivr CDN by default. It is no longer installed or published through Composer.
 
@@ -79,6 +125,32 @@ php artisan config:clear
 
 If the package configuration was previously published, make sure `config/lara-cms-lite.php` contains the current `tinymce_url` setting.
 
+## Publishing views
+
+Publishing the views is optional. The application uses the views included in the package by default.
+
+Publish the views only when you need to customize them or when the host application does not use Bootstrap:
+
+```bash
+php artisan vendor:publish --provider="Fbollon\LaraCmsLite\LaraCmsLiteServiceProvider" --tag=views
+```
+
+The views will be published to:
+
+```text
+resources/views/vendor/lara-cms-lite
+```
+
+Published views override the views included in the package. Once published, future package view updates are not applied automatically to the application.
+
+To overwrite previously published views, use the `--force` option:
+
+```bash
+php artisan vendor:publish --provider="Fbollon\LaraCmsLite\LaraCmsLiteServiceProvider" --tag=views --force
+```
+
+Warning: `--force` overwrites any custom changes made to the published views. Back up or compare customized files before running this command.
+
 ## Authorization
 
 Add a `canManageLaraCmsLiteContent()` method to your application's user model and implement the authorization logic required by your application:
@@ -87,6 +159,15 @@ Add a `canManageLaraCmsLiteContent()` method to your application's user model an
 public function canManageLaraCmsLiteContent(): bool
 {
     return true;
+}
+```
+
+For example, you can check a role or another property:
+
+```php
+public function canManageLaraCmsLiteContent(): bool
+{
+    return $this->role === 'admin';
 }
 ```
 
@@ -135,7 +216,7 @@ public function index()
 
 ## Updating
 
-Update the package and any related dependencies with:
+Update the package and its related dependencies with:
 
 ```bash
 composer update fbollon/lara-cms-lite -W
@@ -147,6 +228,8 @@ Then clear the application caches and run pending migrations:
 php artisan optimize:clear
 php artisan migrate
 ```
+
+If the views were published and the package provides updated views, compare the package views with the customized application views before republishing them.
 
 ## Changelog
 
@@ -162,7 +245,7 @@ If you discover a security vulnerability, please report it privately to the pack
 
 ## Credits
 
-- [Frederic Bollon](https://github.com/fbollon)
+- [Frédéric Bollon](https://github.com/fbollon)
 - [All Contributors](../../contributors)
 
 ## License
