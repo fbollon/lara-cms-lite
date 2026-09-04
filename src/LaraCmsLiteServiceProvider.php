@@ -16,7 +16,20 @@ class LaraCmsLiteServiceProvider extends ServiceProvider
          * Optional methods to load your package assets
          */
         $this->loadTranslationsFrom(__DIR__ . '/resources/lang', 'lara-cms-lite');
-        $this->loadViewsFrom(__DIR__ . '/resources/views', 'lara-cms-lite');
+        // $this->loadViewsFrom(__DIR__ . '/resources/views', 'lara-cms-lite');
+
+        $bootstrapVersion = (int) config('lara-cms-lite.bootstrap_version', 5);
+
+        if (! in_array($bootstrapVersion, [4, 5], true)) {
+            $bootstrapVersion = 5;
+        }
+
+        $this->loadViewsFrom(
+            __DIR__ . "/resources/views/bootstrap{$bootstrapVersion}",
+            'lara-cms-lite'
+        );
+
+
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
         $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
         $this->loadViewsFrom(__DIR__ . '/resources/layouts', 'lara-cms-lite');

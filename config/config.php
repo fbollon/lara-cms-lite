@@ -35,6 +35,16 @@ return [
         'https://cdn.jsdelivr.net/npm/tinymce@8.9.0/tinymce.min.js'
     ),
 
+    /*
+|--------------------------------------------------------------------------
+| Bootstrap version
+|--------------------------------------------------------------------------
+|
+| Version of Bootstrap used by the host application.
+| Supported versions: 4 and 5.
+|
+*/
 
+    'bootstrap_version' => (int) env('LARA_CMS_LITE_BOOTSTRAP_VERSION', 5),
 
 ];

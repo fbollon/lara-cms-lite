@@ -1,0 +1,72 @@
+@extends(config('lara-cms-lite.layout'))
+
+@section('content')
+
+<div class="mb-3">
+    <div class="float-end">
+        <a href="{{ route('contents.create') }}" class="btn btn-success">{{ __('lara-cms-lite::content.create') }}</a>
+    </div>
+    <h1 class="page-title">{{ __('lara-cms-lite::content.list') }} <small>{{ __('app.total') }} : {{ $contentsList->total() }} {{ __('lara-cms-lite::content.content') }}</small></h1>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <form method="GET" action="" accept-charset="UTF-8" class="row g-2 align-items-end">
+                    <div class="col-auto">
+                        <label for="q" class="form-label mb-0">{{ __('lara-cms-lite::content.search') }}</label>
+                        <input placeholder="{{ __('lara-cms-lite::content.search_text') }}" name="q" type="text" id="q" class="form-control" value="{{ request('q') }}">
+                    </div>
+                    <input type="submit" value="{{ __('lara-cms-lite::content.search') }}" class="btn btn-secondary col-auto">
+                    <a href="{{ route('contents.index') }}" class="btn btn-link col-auto">{{ __('app.reset') }}</a>
+                </form>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-sm table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>{{ __('lara-cms-lite::content.name') }}</th>
+                        <th>{{ __('lara-cms-lite::content.route') }}</th>
+                        <th>{{ __('lara-cms-lite::content.description') }}</th>
+                        <th>{{ __('lara-cms-lite::content.displayed') }}</th>
+                        <th>{{ __('lara-cms-lite::content.weight') }}</th>
+                        <th>{{ __('lara-cms-lite::content.created_at') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($contentsList as $key => $content)
+                    <tr class='table-row' data-href="{{ route('contents.show', $content) }}">
+                        <td>{!! $content->name_link !!}</td>
+                        <td>{{ $content->route }}</td>
+                        <td>{{ html_entity_decode(strip_tags(\Illuminate\Support\Str::limit($content->description, 60, $end='...'))) }}</td>
+                        <td>{{ $content->displayed ? __('lara-cms-lite::content.yes') : __('lara-cms-lite::content.no') }}</td>
+                        <td>{{ $content->weight }}</td>
+                        <td>{{ $content->created_at }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+                </table>
+            </div>
+            <div class="card-body">{{ $contentsList->appends(Request::except('page'))->render() }}</div>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('scripts')
+    <script>
+        var ready = (callback) => {
+            if (document.readyState != "loading") callback();
+            else document.addEventListener("DOMContentLoaded", callback);
+        }
+
+        ready(() => {
+            document.querySelectorAll(".table-row").forEach((row) => {
+                row.addEventListener("click", () => {
+                    window.location = row.getAttribute("data-href");
+                });
+            });
+        });
+    </script>
+@endsection
